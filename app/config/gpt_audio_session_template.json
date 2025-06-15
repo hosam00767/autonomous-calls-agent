@@ -1,0 +1,48 @@
+{
+    "turn_detection": {
+        "threshold": 0,
+        "silence_duration_ms":0 ,
+        "prefix_padding_ms": 0,
+        "type": "server_vad"
+    },
+    "input_audio_format": "g711_ulaw",
+    "output_audio_format": "g711_ulaw",
+    "input_audio_transcription": {
+      "model": "whisper-1"
+    },
+    "voice": "shimmer",
+    "max_response_output_tokens": "inf",
+    "instructions": "",
+    "modalities": ["text", "audio"],
+    "temperature": 0,
+    "tool_choice": "auto",
+    "tools": [
+        {
+            "type": "function",
+            "name": "hangup_call",
+            "description": "This function is used when the call is about to end, the customer is not interested, or they say 'bye bye'.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "customer_name": {
+                        "type": "string",
+                        "description": "The name of the customer if provided during the call."
+                    },
+                    "is_Intrested": {
+                        "type": "boolean",
+                        "description": "true if the person on the call is interested, false if not interested in joining Dentinnova"
+                    },
+                    "Comments": {
+                        "type": "string",
+                        "description": "Any comments or feedback from the call."
+                    },
+                    "ContactNumber": {
+                        "type": "integer",
+                        "description": "The phone number provided by the customer, or the contact number for a follow-up call."
+                    }
+                },
+                "required": ["is_Intrested", "Comments", "ContactNumber", "customer_name"]
+            }
+        }
+    ]
+}
